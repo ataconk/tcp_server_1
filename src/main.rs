@@ -5,6 +5,7 @@ use std::io::Result;
 
 fn extract_pair(msg: &str) -> Option<String> {
     if let Ok(v) = serde_json::from_str::<Value>(msg) {
+        println!("{}", v);
         if let Some(pair) = v.get("s") {
             return pair.as_str().map(|s| s.to_string());
         }
@@ -52,7 +53,7 @@ async fn handle_client(stream: TcpStream) -> Result<()> {
         if let Some(pair) = extract_pair(&msg_str) {
             println!("PAIR {:?}", pair);
         } else {
-            println!("No pair")
+            // println!("No pair")
         }
         // println!("Received from client: {:?}", line.trim());
 
