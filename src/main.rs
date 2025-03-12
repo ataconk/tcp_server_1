@@ -51,6 +51,8 @@ async fn handle_client(stream: TcpStream) -> Result<()> {
         let msg_str = line.trim();
         if let Some(pair) = extract_pair(&msg_str) {
             println!("PAIR {:?}", pair);
+        } else {
+            println!("No pair")
         }
         // println!("Received from client: {:?}", line.trim());
 
