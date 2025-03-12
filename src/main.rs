@@ -5,9 +5,12 @@ use std::io::Result;
 
 fn extract_pair(msg: &str) -> Option<String> {
     if let Ok(v) = serde_json::from_str::<Value>(msg) {
-        if let Some(pair) = v.get("s") {
-            println!("{}", pair);
-            return pair.as_str().map(|s| s.to_string());
+        if let Some(data) = v.get("data") {
+            if let Some(pair) = data.get("s"){
+                println!("{}", pair);
+                return pair.as_str().map(|s| s.to_string());
+
+            }
         }
     }
     None
