@@ -48,8 +48,11 @@ async fn handle_client(stream: TcpStream) -> Result<()> {
             // Connection closed.
             return Ok(());
         }
-
-        println!("Received from client: {:?}", line.trim());
+        let msg_str = line.trim();
+        if let Some(pair) = extract_pair(&msg_str) {
+            println!("PAIR {:?}", pair);
+        }
+        // println!("Received from client: {:?}", line.trim());
 
         // If client sends "ping", respond with "pong"
         if line.trim() == "ping" {
